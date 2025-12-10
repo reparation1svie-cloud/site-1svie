@@ -421,6 +421,11 @@ Modèle : ${modele}%0A
 Problème : ${prob}%0A
 Prix estimé : ${prixGlobal} €%0A
 (Si “Autre”, merci de décrire le problème)`;
+
+	// Active le bouton de paiement après envoi du mail
+document.getElementById("btn-acompte").disabled = false;
+document.getElementById("bulle-pay").style.display = "none";
+
 }
 
 function payerAccompte() {
@@ -529,9 +534,22 @@ function payerStripe() {
 <button onclick="envoyerEmail()">Envoyer le récap par mail</button>
 
 <!-- BOUTON DE PAIEMENT CACHÉ AU DÉBUT -->
-<button id="btn-acompte"  onclick="payerAccompte()">
+<button id="btn-acompte" onclick="payerAccompte()" disabled>
     Payer un acompte (50%)
 </button>
+
+<!-- Bulle d’avertissement -->
+<div id="bulle-pay" style="
+    margin-top:10px;
+    background:#fff5c4;
+    border:1px solid #e0c769;
+    padding:10px;
+    border-radius:8px;
+    display:block;
+">
+⚠️ Vous devez envoyer le récap avant de payer.
+</div>
+
 
 </section>
 
@@ -546,6 +564,7 @@ function payerStripe() {
 
 </body>
 </html>
+
 
 
 
