@@ -394,20 +394,38 @@ function genererRecap() {
 
 /* --- Email + activer paiement --- */
 function envoyerEmail() {
-    alert("Email envoyé ✔️");
-
     const marque = document.getElementById("marque").value;
     const modele = document.getElementById("modele").value;
     const prob = document.getElementById("probleme").value;
 
+    const nom = document.getElementById("nom").value;
+    const prenom = document.getElementById("prenom").value;
+    const email = document.getElementById("email").value;
+    const telephone = document.getElementById("telephone").value;
+
+    if (!nom || !prenom || !email || !telephone) {
+        alert("Merci de remplir toutes les informations avant d’envoyer.");
+        return;
+    }
+
+    alert("Email envoyé ✔️");
+
     window.location.href =
         `mailto:reparation1svie@gmail.com?subject=Nouvelle réparation&body=
+Informations du client :
+Nom : ${nom}%0A
+Prénom : ${prenom}%0A
+Email : ${email}%0A
+Téléphone : ${telephone}%0A%0A
+
+Récapitulatif de la réparation :
 Marque : ${marque}%0A
 Modèle : ${modele}%0A
 Problème : ${prob}%0A
 Prix : ${prixGlobal} €%0A
-(Si option “Autre”, merci d’ajouter une description)`;
+(Si “Autre”, merci d’ajouter une précision)`;
 }
+
 
 /* --- Page paiement --- */
 function payerAccompte() {
@@ -501,10 +519,26 @@ async function payerStripe() {
 </div>
 
 <p id="recap"></p>
+	
+<!-- ⬇⬇ AJOUT DU FORMULAIRE CLIENT ICI ⬇⬇ -->
+<h3>Vos informations</h3>
 
+<input id="nom" type="text" placeholder="Nom" 
+       style="width:90%;padding:10px;margin-top:10px;border-radius:8px;">
+
+<input id="prenom" type="text" placeholder="Prénom" 
+       style="width:90%;padding:10px;margin-top:10px;border-radius:8px;">
+
+<input id="email" type="email" placeholder="Adresse mail" 
+       style="width:90%;padding:10px;margin-top:10px;border-radius:8px;">
+
+<input id="telephone" type="tel" placeholder="Numéro de téléphone" 
+       style="width:90%;padding:10px;margin-top:10px;border-radius:8px;">
+<!-- ⬆⬆ FORMULAIRE CLIENT ⬆⬆ -->
 <button onclick="envoyerEmail()">Envoyer le récap par mail</button>
 
 <!-- BOUTON DE PAIEMENT CACHÉ AU DÉBUT -->
+	
 <button id="btn-acompte"  onclick="payerAccompte()">
     Payer un acompte (50%)
 </button>
@@ -522,6 +556,7 @@ async function payerStripe() {
 
 </body>
 </html>
+
 
 
 
