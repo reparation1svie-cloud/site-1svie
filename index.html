@@ -422,8 +422,10 @@ Problème : ${prob}%0A
 Prix estimé : ${prixGlobal} €%0A
 (Si “Autre”, merci de décrire le problème)`;
 
-	// Active le bouton de paiement après envoi du mail
+	// Active le paiement après envoi du mail
 document.getElementById("btn-acompte").disabled = false;
+document.getElementById("btn-acompte").style.opacity = "1";
+document.getElementById("btn-acompte").style.cursor = "pointer";
 document.getElementById("bulle-pay").style.display = "none";
 
 }
@@ -532,23 +534,23 @@ function payerStripe() {
 <input type="tel" id="telephone" placeholder="Numéro de téléphone" required>
 
 <button onclick="envoyerEmail()">Envoyer le récap par mail</button>
-
-<!-- BOUTON DE PAIEMENT CACHÉ AU DÉBUT -->
-<button id="btn-acompte" onclick="payerAccompte()" disabled>
+<!-- BOUTON PAYER (désactivé au début) -->
+<button id="btn-acompte" onclick="payerAccompte()" disabled style="opacity:0.4; cursor:not-allowed;">
     Payer un acompte (50%)
 </button>
 
-<!-- Bulle d’avertissement -->
+<!-- BULLE OBLIGATION -->
 <div id="bulle-pay" style="
     margin-top:10px;
-    background:#fff5c4;
+    background:#ffe9b3;
     border:1px solid #e0c769;
     padding:10px;
     border-radius:8px;
     display:block;
 ">
-⚠️ Vous devez envoyer le récap avant de payer.
+⚠️ Vous devez envoyer le récap avant de pouvoir payer.
 </div>
+
 
 
 </section>
@@ -564,6 +566,7 @@ function payerStripe() {
 
 </body>
 </html>
+
 
 
 
