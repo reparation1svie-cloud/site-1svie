@@ -431,12 +431,37 @@ document.getElementById("bulle-pay").style.display = "none";
 }
 
 function payerAccompte() {
-    showSection("paiement");
 
-    document.getElementById("recap2").innerHTML =
-        `<b>Montant total :</b> ${prixGlobal} €<br>
-         <b>Acompte (50%) :</b> ${(prixGlobal/2).toFixed(2)} €`;
+    if (!prixGlobal || prixGlobal === "Prix non disponible") {
+        alert("Impossible de calculer l'acompte.");
+        return;
+    }
+
+    const prenom = document.getElementById("prenom").value;
+    const nom = document.getElementById("nom").value;
+    const email = document.getElementById("email").value;
+    const telephone = document.getElementById("telephone").value;
+
+    if (!prenom || !nom || !email || !telephone) {
+        alert("Merci de remplir vos informations.");
+        return;
+    }
+
+    // 🔥 Calcule automatiquement l’acompte : 50%
+    const acompte = prixGlobal / 2;
+    const acompteCentimes = Math.round(acompte * 100);
+
+    // 🔥 Ton lien Stripe (TOUJOURS LE MEME)
+    const stripeLink = "https://buy.stripe.com/6oU7sF7Gf2Gc6Ol6uO0oM00";
+
+    // 🔥 On ajoute le montant dynamique + email pré-rempli
+    const url = stripeLink
+        + "?amount=" + acompteCentimes
+        + "&prefilled_email=" + encodeURIComponent(email);
+
+    window.location.href = url;
 }
+
 
 function payerStripe() {
 
@@ -566,6 +591,7 @@ function payerStripe() {
 
 </body>
 </html>
+
 
 
 
