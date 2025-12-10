@@ -542,7 +542,14 @@ async function payerStripe() {
 <button id="btn-acompte"  onclick="payerAccompte()">
     Payer un acompte (50%)
 </button>
-
+	
+<!-- ⬇⬇ Bulle d’avertissement ⬇⬇ -->
+<div id="bulle-paiement" 
+     style="margin-top:15px;background:#ffffffcc;padding:12px;border-radius:10px;
+            border:1px solid #00000040;width:90%;margin-left:auto;margin-right:auto;
+            font-size:0.95rem;">
+    ⚠️ Veuillez envoyer le récap par mail avant de payer.
+</div>
 </section>
 
 <!-- PAGE 5 : Paiement -->
@@ -556,6 +563,7 @@ async function payerStripe() {
 
 </body>
 </html>
+
 
 
 
