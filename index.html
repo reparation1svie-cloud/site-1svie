@@ -394,12 +394,14 @@ function genererRecap() {
 
 /* --- Email + activer paiement --- */
 function envoyerEmail() {
+
     alert("Email envoyé ✔️");
 
     const marque = document.getElementById("marque").value;
     const modele = document.getElementById("modele").value;
     const prob = document.getElementById("probleme").value;
 
+    // Ouvre le mail
     window.location.href =
         `mailto:reparation1svie@gmail.com?subject=Nouvelle réparation&body=
 Marque : ${marque}%0A
@@ -407,7 +409,28 @@ Modèle : ${modele}%0A
 Problème : ${prob}%0A
 Prix : ${prixGlobal} €%0A
 (Si option “Autre”, merci d’ajouter une description)`;
+
+    // ➜ ACTIVE LE PAIEMENT APRÈS ENVOI DU MAIL
+    document.getElementById("btn-acompte").disabled = false;
+    document.getElementById("btn-acompte").style.opacity = "1";
+    document.getElementById("btn-acompte").style.cursor = "pointer";
+
+    // ➜ CACHE LA BULLE D'AVERTISSEMENT
+    document.getElementById("bulle-pay").style.display = "none";
 }
+
+
+	
+<div id="bulle-pay" style="
+    margin-top:15px;
+    background:#ffe7a8;
+    border:1px solid #d6b75a;
+    padding:12px;
+    border-radius:10px;
+    font-size:1rem;
+">
+⚠️ Vous devez envoyer le récap par mail avant de pouvoir payer.
+</div>
 
 /* --- Page paiement --- */
 function payerAccompte() {
@@ -505,9 +528,11 @@ async function payerStripe() {
 <button onclick="envoyerEmail()">Envoyer le récap par mail</button>
 
 <!-- BOUTON DE PAIEMENT CACHÉ AU DÉBUT -->
-<button id="btn-acompte"  onclick="payerAccompte()">
+<button id="btn-acompte" onclick="payerAccompte()" disabled 
+    style="opacity:0.4; cursor:not-allowed;">
     Payer un acompte (50%)
 </button>
+
 
 </section>
 
@@ -522,6 +547,7 @@ async function payerStripe() {
 
 </body>
 </html>
+
 
 
 
