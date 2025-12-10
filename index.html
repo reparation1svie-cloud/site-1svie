@@ -409,7 +409,13 @@ function envoyerEmail() {
     }
 
     alert("Email envoyé ✔️");
+	
+// ➜ ACTIVER le bouton payer
+    document.getElementById("btn-acompte").disabled = false;
+    document.getElementById("btn-acompte").style.opacity = "1";
+    document.getElementById("btn-acompte").style.cursor = "pointer";
 
+	
     window.location.href =
         `mailto:reparation1svie@gmail.com?subject=Nouvelle réparation&body=
 Informations du client :
@@ -539,9 +545,11 @@ async function payerStripe() {
 
 <!-- BOUTON DE PAIEMENT CACHÉ AU DÉBUT -->
 	
-<button id="btn-acompte"  onclick="payerAccompte()">
+<button id="btn-acompte" onclick="payerAccompte()" disabled
+        style="opacity:0.4; cursor:not-allowed;">
     Payer un acompte (50%)
 </button>
+
 	
 <!-- ⬇⬇ Bulle d’avertissement ⬇⬇ -->
 <div id="bulle-paiement" 
@@ -563,6 +571,7 @@ async function payerStripe() {
 
 </body>
 </html>
+
 
 
 
