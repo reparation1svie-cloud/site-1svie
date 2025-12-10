@@ -423,6 +423,13 @@ Prix estimé : ${prixGlobal} €%0A
 (Si “Autre”, merci de décrire le problème)`;
 }
 
+function payerAccompte() {
+    showSection("paiement");
+
+    document.getElementById("recap2").innerHTML =
+        `<b>Montant total :</b> ${prixGlobal} €<br>
+         <b>Acompte (50%) :</b> ${(prixGlobal/2).toFixed(2)} €`;
+}
 
 function payerStripe() {
 
@@ -539,6 +546,7 @@ function payerStripe() {
 
 </body>
 </html>
+
 
 
 
