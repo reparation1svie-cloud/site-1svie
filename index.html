@@ -392,98 +392,47 @@ function genererRecap() {
     showSection("page4");
 }
 
+/* --- Email + activer paiement --- */
 function envoyerEmail() {
-
-    const prenom = document.getElementById("prenom").value;
-    const nom = document.getElementById("nom").value;
-    const email = document.getElementById("email").value;
-    const telephone = document.getElementById("telephone").value;
+    alert("Email envoyé ✔️");
 
     const marque = document.getElementById("marque").value;
     const modele = document.getElementById("modele").value;
     const prob = document.getElementById("probleme").value;
 
-    if (!prenom || !nom || !email || !telephone) {
-        alert("Merci de remplir tous les champs avant d'envoyer.");
-        return;
-    }
-
-    alert("Email envoyé ✔️");
-
     window.location.href =
         `mailto:reparation1svie@gmail.com?subject=Nouvelle réparation&body=
-Prénom : ${prenom}%0A
-Nom : ${nom}%0A
-Email : ${email}%0A
-Téléphone : ${telephone}%0A
 Marque : ${marque}%0A
 Modèle : ${modele}%0A
 Problème : ${prob}%0A
-Prix estimé : ${prixGlobal} €%0A
-(Si “Autre”, merci de décrire le problème)`;
-
-	// Active le paiement après envoi du mail
-document.getElementById("btn-acompte").disabled = false;
-document.getElementById("btn-acompte").style.opacity = "1";
-document.getElementById("btn-acompte").style.cursor = "pointer";
-document.getElementById("bulle-pay").style.display = "none";
-
+Prix : ${prixGlobal} €%0A
+(Si option “Autre”, merci d’ajouter une description)`;
 }
 
+/* --- Page paiement --- */
 function payerAccompte() {
+    showSection("paiement");
 
-    if (!prixGlobal || prixGlobal === "Prix non disponible") {
-        alert("Impossible de calculer l'acompte.");
-        return;
-    }
-
-    const prenom = document.getElementById("prenom").value;
-    const nom = document.getElementById("nom").value;
-    const email = document.getElementById("email").value;
-    const telephone = document.getElementById("telephone").value;
-
-    if (!prenom || !nom || !email || !telephone) {
-        alert("Merci de remplir vos informations.");
-        return;
-    }
-
-    // 🔥 Calcule automatiquement l’acompte : 50%
-    const acompte = prixGlobal / 2;
-    const acompteCentimes = Math.round(acompte * 100);
-
-    // 🔥 Ton lien Stripe (TOUJOURS LE MEME)
-    const stripeLink = "https://buy.stripe.com/6oU7sF7Gf2Gc6Ol6uO0oM00";
-
-    // 🔥 On ajoute le montant dynamique + email pré-rempli
-    const url = stripeLink
-        + "?amount=" + acompteCentimes
-        + "&prefilled_email=" + encodeURIComponent(email);
-
-    window.location.href = url;
+    document.getElementById("recap2").innerHTML =
+        `<b>Montant total :</b> ${prixGlobal} €<br>
+         <b>Acompte (50%) :</b> ${(prixGlobal/2).toFixed(2)} €`;
 }
 
+async function payerStripe() {
+    const response = await fetch("https://stripe-server-1svie-2.onrender.com/create-checkout-session", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            amount: prixGlobal / 2,   // acompte = 50%
+            model: document.getElementById("modele").value
+        })
+    });
 
-function payerStripe() {
-
-    const prenom = document.getElementById("prenom").value;
-    const nom = document.getElementById("nom").value;
-    const email = document.getElementById("email").value;
-    const telephone = document.getElementById("telephone").value;
-
-    if (!prenom || !nom || !email || !telephone) {
-        alert("Merci de remplir tous les champs avant de payer.");
-        return;
-    }
-
-    // Ton lien Stripe
-    const stripeLink = "https://buy.stripe.com/6oU7sF7Gf2Gc6Ol6uO0oM00";
-
-    // Email envoyé automatiquement à Stripe
-    const url = stripeLink + "?prefilled_email=" + encodeURIComponent(email);
-
-    window.location.href = url;
+    const data = await response.json();
+    window.location.href = data.url; // redirection vers Stripe
 }
-
 
 
 </script>
@@ -552,31 +501,13 @@ function payerStripe() {
 </div>
 
 <p id="recap"></p>
-<!-- FORMULAIRE CLIENT -->
-<input type="text" id="prenom" placeholder="Prénom" required>
-<input type="text" id="nom" placeholder="Nom" required>
-<input type="email" id="email" placeholder="Adresse email" required>
-<input type="tel" id="telephone" placeholder="Numéro de téléphone" required>
 
 <button onclick="envoyerEmail()">Envoyer le récap par mail</button>
-<!-- BOUTON PAYER (désactivé au début) -->
-<button id="btn-acompte" onclick="payerAccompte()" disabled style="opacity:0.4; cursor:not-allowed;">
+
+<!-- BOUTON DE PAIEMENT CACHÉ AU DÉBUT -->
+<button id="btn-acompte"  onclick="payerAccompte()">
     Payer un acompte (50%)
 </button>
-
-<!-- BULLE OBLIGATION -->
-<div id="bulle-pay" style="
-    margin-top:10px;
-    background:#ffe9b3;
-    border:1px solid #e0c769;
-    padding:10px;
-    border-radius:8px;
-    display:block;
-">
-⚠️ Vous devez envoyer le récap avant de pouvoir payer.
-</div>
-
-
 
 </section>
 
@@ -591,6 +522,7 @@ function payerStripe() {
 
 </body>
 </html>
+
 
 
 
