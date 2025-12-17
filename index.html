@@ -268,14 +268,14 @@ const PRICES = {
 	"Huawei P Smart 2021":         {ecran:75,batterie:60,vitre:55,chassis:85},
 	
 	//Oppo-----------------------------------------------------------------------------------------------------------------------------------
-	"Oppo Find X9 Pro":             {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Oppo Find X9":                 {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Oppo Reno14 F 5G":             {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Oppo Reno12 FS 5G":            {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Oppo A79 5G":                  {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Oppo Find X5 Pro 5G":          {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Oppo Find A54 5G":             {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Oppo Find X3 Lite 5G":         {ecran:55,batterie:50,vitre:50,chassis:65},
+	"Oppo Find X9 Pro":             {ecran:60,batterie:70,vitre:80,chassis:120},
+	"Oppo Find X9":                 {ecran:60,batterie:65,vitre:75,chassis:120},
+	"Oppo Reno14 F 5G":             {ecran:80,batterie:60,vitre:75,chassis:170},
+	"Oppo Reno12 FS 5G":            {ecran:70,batterie:60,vitre:75,chassis:120},
+	"Oppo A79 5G":                  {ecran:70,batterie:70,vitre:75,chassis:80},
+	"Oppo Find X5 Pro 5G":          {ecran:90,batterie:80,vitre:65,chassis:90},
+	"Oppo Find A54 5G":             {ecran:70,batterie:60,vitre:65,chassis:65},
+	"Oppo Find X3 Lite 5G":         {ecran:80,batterie:60,vitre:65,chassis:90},
 	
 	//Google----------------------------------------------------------------------------------------------------------------------------------
 	"Google Pixel 7 Pro":           {ecran:85,batterie:90,vitre:70,chassis:85},
@@ -288,26 +288,15 @@ const PRICES = {
 	"Google Pixel 10 Pro XL":       {ecran:205,batterie:80,vitre:165,chassis:110},
 	
 	//OnePlus--------------------------------------------------------------------------------------------------------------------------------
-	"OnePlus Nord 2T 5G":          {ecran:60,batterie:70,vitre:70,chassis:90},
-	"OnePlus Nord 3 5G":           {ecran:95,batterie:60,vitre:60,chassis:65},
-	"OnePlus Nord 5 5G":           {ecran:95,batterie:70,vitre:80,chassis:65},
-	"OnePlus 11 5G":               {ecran:90,batterie:70,vitre:70,chassis:65},
-	"OnePlus 12R 5G":              {ecran:120,batterie:80,vitre:90,chassis:65},
-	"OnePlus 12 5G":               {ecran:160,batterie:80,vitre:60,chassis:65},
-	"OnePlus 13R 5G":              {ecran:180,batterie:80,vitre:80,chassis:65},
-	"OnePlus 13 5G":               {ecran:270,batterie:80,vitre:70,chassis:65},
-	
-	//Sony------------------------------------------------------------------------------------------------------------------------------------
-	"Sony Xperia 10V 5G":          {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Sony Xperia 1 IV 5G":         {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Sony Xperia 5 IV":            {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Sony Xperia 10V VII":         {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Sony Xperia 10 IV":           {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Sony Xperia 1 III":           {ecran:55,batterie:50,vitre:50,chassis:65},
-	"Sony Xperia 5 II":            {ecran:55,batterie:50,vitre:50,chassis:80},
-	
-	
-	
+	"OnePlus Nord 2T 5G":          {ecran:60,batterie:70,vitre:70,chassis:200},
+	"OnePlus Nord 3 5G":           {ecran:95,batterie:60,vitre:60,chassis:210},
+	"OnePlus Nord 5 5G":           {ecran:95,batterie:70,vitre:80,chassis:110},
+	"OnePlus 11 5G":               {ecran:90,batterie:70,vitre:70,chassis:110},
+	"OnePlus 12R 5G":              {ecran:120,batterie:80,vitre:90,chassis:140},
+	"OnePlus 12 5G":               {ecran:160,batterie:80,vitre:60,chassis:230},
+	"OnePlus 13R 5G":              {ecran:180,batterie:80,vitre:80,chassis:230},
+	"OnePlus 13 5G":               {ecran:270,batterie:80,vitre:70,chassis:230},
+
 	
 };
 
@@ -342,8 +331,6 @@ function remplirModeles() {
 		//OnePlus
 		OnePlus:["OnePlus Nord 2T 5G","OnePlus Nord 3 5G","OnePlus Nord CE4 Lite 5G","OnePlus Nord CE5 5G","OnePlus Nord 5 5G","OnePlus 11 5G","OnePlus 12R 5G","OnePlus 12 5G","OnePlus 13R 5G","OnePlus 13 5G"],
        
-       //Sony 
-	   Sony:["Sony Xperia 10V 5G","Sony Xperia 1 IV 5G","Sony Xperia 5 IV","Sony Xperia 10V VII","Sony Xperia 10 IV","Sony Xperia 1 III","Sony Xperia 5 II"]
     };
 
     const modeleSelect = document.getElementById("modele");
@@ -569,6 +556,7 @@ async function payerStripe() {
 
 </body>
 </html>
+
 
 
 
