@@ -358,22 +358,46 @@ let prixGlobal = 0;
 function genererRecap() {
     const marque = document.getElementById("marque").value;
     const modele = document.getElementById("modele").value;
-    const prob = document.getElementById("probleme").value;
+    const problemes = document.querySelectorAll(".probleme:checked");
 
-    if (prob === "autre")
-        document.getElementById("bulle-autre").style.display = "flex";
-    else
-        document.getElementById("bulle-autre").style.display = "none";
+    if (!marque || !modele) {
+        alert("Merci de choisir une marque et un modèle.");
+        return;
+    }
 
-    prixGlobal = (PRICES[modele] && PRICES[modele][prob]) ? PRICES[modele][prob] : "Prix non disponible";
+    if (problemes.length === 0) {
+        alert("Merci de sélectionner au moins une réparation.");
+        return;
+    }
 
-    document.getElementById("recap").innerHTML =
-        `<b>Marque :</b> ${marque}<br>
-         <b>Modèle :</b> ${modele}<br>
-         <b>Problème :</b> ${prob}<br>
-         <b>Prix :</b> ${prixGlobal} €`;
+    prixGlobal = 0;
+    let liste = [];
+    let autre = false;
+
+    problemes.forEach(p => {
+        liste.push(p.value);
+
+        if (p.value === "autre") autre = true;
+
+        if (PRICES[modele] && PRICES[modele][p.value]) {
+            prixGlobal += PRICES[modele][p.value];
+        }
+    });
+
+    document.getElementById("bulle-autre").style.display =
+        autre ? "flex" : "none";
+
+    document.getElementById("recap").innerHTML = `
+        <b>Marque :</b> ${marque}<br>
+        <b>Modèle :</b> ${modele}<br>
+        <b>Réparations :</b> ${liste.join(", ")}<br>
+        <b>Prix total :</b> ${prixGlobal} €
+    `;
 
     showSection("page4");
+
+
+
 }
 
 /* --- Email + activer paiement --- */
@@ -479,14 +503,37 @@ async function payerStripe() {
 <option value="">Choisir le modèle</option>
 </select>
 
-<select id="probleme">
-<option value="">Type de réparation</option>
-<option value="batterie">Batterie à changer</option>
-<option value="ecran">Écran cassé</option>
-<option value="vitre">Vitre arrière cassée</option>
-<option value="chassis">Châssis</option>
-<option value="autre">Autre</option>
-</select>
+	
+<!-- CHOIX MULTIPLE DES RÉPARATIONS -->
+<div id="liste-problemes" style="text-align:left;width:90%;margin:auto;">
+
+  <label>
+    <input type="checkbox" class="probleme" value="batterie">
+    🔋 Batterie à changer
+  </label><br>
+
+  <label>
+    <input type="checkbox" class="probleme" value="ecran">
+    📱 Écran cassé
+  </label><br>
+
+  <label>
+    <input type="checkbox" class="probleme" value="vitre">
+    🔙 Vitre arrière cassée
+  </label><br>
+
+  <label>
+    <input type="checkbox" class="probleme" value="chassis">
+    🧱 Châssis
+  </label><br>
+
+  <label>
+    <input type="checkbox" class="probleme" value="autre">
+    ❓ Autre
+  </label>
+
+</div>
+
 
 <button onclick="showSection('page3')">Valider</button>
 </section>
@@ -570,6 +617,7 @@ async function payerStripe() {
 
 </body>
 </html>
+
 
 
 
