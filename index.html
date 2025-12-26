@@ -404,7 +404,13 @@ function genererRecap() {
 function envoyerEmail() {
     const marque = document.getElementById("marque").value;
     const modele = document.getElementById("modele").value;
-    const prob = document.getElementById("probleme").value;
+
+    const problemes = document.querySelectorAll(".probleme:checked");
+    let listeProblemes = [];
+
+    problemes.forEach(p => {
+        listeProblemes.push(p.value);
+    });
 
     const nom = document.getElementById("nom").value;
     const prenom = document.getElementById("prenom").value;
@@ -417,13 +423,12 @@ function envoyerEmail() {
     }
 
     alert("Email envoyé ✔️");
-	
-// ➜ ACTIVER le bouton payer
+
+    // Activer le bouton paiement
     document.getElementById("btn-acompte").disabled = false;
     document.getElementById("btn-acompte").style.opacity = "1";
     document.getElementById("btn-acompte").style.cursor = "pointer";
 
-	
     window.location.href =
         `mailto:reparation1svie@gmail.com?subject=Nouvelle réparation&body=
 Informations du client :
@@ -435,10 +440,11 @@ Téléphone : ${telephone}%0A%0A
 Récapitulatif de la réparation :
 Marque : ${marque}%0A
 Modèle : ${modele}%0A
-Problème : ${prob}%0A
+Réparations : ${listeProblemes.join(", ")}%0A
 Prix : ${prixGlobal} €%0A
 (Si “Autre”, merci d’ajouter une précision)`;
 }
+
 
 
 /* --- Page paiement --- */
@@ -617,6 +623,7 @@ async function payerStripe() {
 
 </body>
 </html>
+
 
 
 
